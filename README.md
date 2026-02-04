@@ -2,9 +2,41 @@
 
 Internal tool for pulling QuickBooks Profit & Loss statements for financial analysis.
 
-## Purpose
+## Quick Start
 
-This application connects to QuickBooks Online API to retrieve Profit & Loss statements for internal analysis and reporting purposes.
+### 1. Get a Public URL (Required for QuickBooks OAuth)
+
+QuickBooks requires a real domain (not localhost). Use **ngrok** for testing:
+
+```bash
+# Install ngrok from https://ngrok.com/download
+# Then run:
+ngrok http 5000
+```
+
+You'll get a URL like: `https://xxxx.ngrok-free.app`
+
+### 2. Configure
+
+1. Copy `config.py` and add your QuickBooks OAuth credentials
+2. Update `QUICKBOOKS_REDIRECT_URI` with your ngrok URL:
+   ```python
+   QUICKBOOKS_REDIRECT_URI = "https://xxxx.ngrok-free.app/auth/callback"
+   ```
+
+### 3. Install & Run
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+### 4. Register with QuickBooks
+
+Use these URLs in QuickBooks app registration:
+- **Host domain:** `xxxx.ngrok-free.app` (no https://)
+- **Launch URL:** `https://xxxx.ngrok-free.app/auth/callback`
+- **Disconnect URL:** `https://xxxx.ngrok-free.app/disconnect`
 
 ## Features
 
@@ -12,24 +44,6 @@ This application connects to QuickBooks Online API to retrieve Profit & Loss sta
 - Retrieve P&L statements via QuickBooks API
 - Store data securely for analysis
 - Generate reports from financial data
-
-## Setup
-
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-2. Configure QuickBooks OAuth credentials in `config.py`
-
-3. Run the application:
-```bash
-python app.py
-```
-
-## Usage
-
-This is an internal tool. Access is restricted to authorized users only.
 
 ## Privacy
 
